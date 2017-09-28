@@ -1,9 +1,9 @@
 (function() {
-     function AlbumCtrl() {
-         this.albumData = angular.copy(albumPicasso);
-     }
- 
-     angular
-         .module('blocJams')
-         .controller('AlbumCtrl', AlbumCtrl);
- })();
+    function AlbumCtrl(Fixtures) {
+        this.albumData = Fixtures.getAlbum();
+    }
+
+    angular
+        .module('blocJams')
+        .controller('AlbumCtrl', ['Fixtures', AlbumCtrl]);
+})();
