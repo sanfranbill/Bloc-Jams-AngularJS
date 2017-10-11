@@ -82,11 +82,14 @@
         */
         SongPlayer.play = function(song) {
             song = song || SongPlayer.currentSong;
-            if (SongPlayer.currentSong !== song) {       // you clicked another song
+            if (song === null) {
+                setSong(currentAlbum.songs[0]);
+                playSong(currentAlbum.songs[0]);
+            } else if (SongPlayer.currentSong !== song) {       // you clicked another song
                 setSong(song);
                 playSong(song);
             } else if (SongPlayer.currentSong === song) {     // you clicked the currently playing song
-                if (currentBuzzObject.isPaused()) {
+                if (currentBuzzObject.isPaused()) {       // checks if current song is paused
                     playSong(song);
                 }
             }
