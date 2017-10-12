@@ -1,6 +1,11 @@
 (function() {
     function SongPlayer($rootScope, Fixtures) {
         var SongPlayer = {};
+        
+        /**
+        * @desc Get fixtures info and assign it to currentAlbum
+        * @type {Object}
+        */
         var currentAlbum = Fixtures.getAlbum();  
           
         /**
@@ -27,6 +32,9 @@
             currentBuzzObject.bind('timeupdate', function() {
                 $rootScope.$apply(function() {
                     SongPlayer.currentTime = currentBuzzObject.getTime();
+                    if (currentBuzzObject.isEnded()) {
+                        SongPlayer.next();
+                    }
                 });
             });
 
@@ -74,6 +82,12 @@
         * @type {Number}
         */
         SongPlayer.currentTime = null;
+        
+        /**
+        * @desc Sets initial volume default value
+        * @type {Number}
+        */
+        SongPlayer.volume = 75;
         
         /** 
         * @function SongPlayer.play(song)
@@ -153,6 +167,17 @@
                 currentBuzzObject.setTime(time);
             }
         };
+        
+        /** 
+        * @function setVolume
+        * @desc Set current volume
+        * @param {Number}
+        */
+        SongPlayer.setVolume = function(volume) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(volume);
+            }
+        };        
         
         return SongPlayer;
     }
